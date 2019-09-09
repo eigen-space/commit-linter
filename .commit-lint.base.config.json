@@ -1,0 +1,5 @@
+{
+    "body": "^([a-z\\/,\\- ]+?): (([a-z]+?ed|set|reset|draft) [a-z A-Z 0-9,]+)$",
+    "issuePrefixes": ["microfix"],
+    "ignore": ["^Merge .*", "^auto/.*"]
+}

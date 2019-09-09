@@ -1,0 +1,8 @@
+{
+    "extends": ".commit-lint.base.config.json",
+    "issuePrefixes": [
+        "proposal/[a-z-]+",
+        "#[0-9]+",
+        "TAX-[0-9]+"
+    ]
+}

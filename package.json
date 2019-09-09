@@ -1,0 +1,56 @@
+{
+    "name": "@eigenspace/commit-lint",
+    "version": "0.0.2",
+    "author": "Daniil Sitdikov",
+    "email": "hello.boriskas@gmail.com",
+    "license": "MIT",
+    "scripts": {
+        "build": "tsc && node ./dev/scripts/copy-assets.js",
+        "lint": "yarn lint:code . && yarn lint:markdown",
+        "lint:code": "eslint --ext .tsx,.ts",
+        "lint:fix": "yarn lint:code --fix",
+        "hooks:pre-push": "yarn lint",
+        "hooks:pre-commit": "lint-staged",
+        "lint:markdown": "node ./node_modules/@eigenspace/codestyle/scripts/markdown-lint.js",
+        "deploy:publish": "node node_modules/@eigenspace/helper-scripts/scripts/ci/publish.js",
+        "test": "jest"
+    },
+    "husky": {
+        "hooks": {
+            "pre-push": "yarn hooks:pre-push",
+            "pre-commit": "yarn hooks:pre-commit"
+        }
+    },
+    "lint-staged": {
+        "*.{ts,tsx}": [
+            "yarn lint:fix",
+            "git add"
+        ]
+    },
+    "keywords": [
+        "javascript",
+        "nodejs",
+        "rules",
+        "style",
+        "commit",
+        "name",
+        "husky",
+        "commitlint"
+    ],
+    "dependencies": {
+        "@eigenspace/argument-parser": "1.0.4"
+    },
+    "devDependencies": {
+        "@eigenspace/codestyle": "1.1.67",
+        "@eigenspace/eslint-config-codestyle": "1.1.1",
+        "@eigenspace/helper-scripts": "1.0.79",
+        "jest": "24.9.0",
+        "eslint": "5.16.0",
+        "lint-staged": "8.1.7",
+        "husky": "2.3.0",
+        "typescript": "3.5.3"
+    },
+    "bin": {
+        "commit-lint": "./cli.js"
+    }
+}
