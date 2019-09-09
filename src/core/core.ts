@@ -1,6 +1,8 @@
 import { Config, Dictionary } from '../types';
 import { TokenDictionary } from './core.interface';
 import { exitWithError, exitWithSuccess, getCommitMessage, getConfigContentFrom, merge } from '../lib';
+import { StringValue } from './core.const';
+
 const { ArgumentParser } = require('@eigenspace/argument-parser');
 
 const DEFAULT_COMMIT_CONFIG_PATH = '.commit-lint.config.json';
@@ -8,9 +10,11 @@ const DEFAULT_COMMIT_CONFIG_PATH = '.commit-lint.config.json';
 const SUCCESS_MESSAGE = '✔ Commit is valid';
 
 const ERROR_PREFIX = '✘ Commit error: \n';
-const REFERENCE_TO_DOC = 'Please, read: https://github.com/eigen-space/codestyle/tree/dev/doc/common#512-сообщение-к-изменению';
-const ISSUE_PREFIX_ERROR = `${ERROR_PREFIX} Issue prefix ":0" doesn\'t match the requirements. \n ${REFERENCE_TO_DOC}`;
-const BODIES_ERROR = `${ERROR_PREFIX} These bodies: ":0" don\'t match the requirements. \n ${REFERENCE_TO_DOC}`;
+const REFERENCE_TO_DOC = `Please, read: ${StringValue.DOC_LINK}`;
+const ISSUE_PREFIX_ERROR = `${ERROR_PREFIX} Issue prefix "${StringValue.ISSUE_PREFIX}" doesn\'t match the requirements. 
+\n ${REFERENCE_TO_DOC}`;
+const BODIES_ERROR = `${ERROR_PREFIX} These bodies: "${StringValue.BODIES}" don\'t match the requirements. 
+\n ${REFERENCE_TO_DOC}`;
 
 export function validate(): void {
     const config = getConfig();
@@ -59,7 +63,10 @@ function checkForIssuePrefix(config: Config, { issuePrefix = '' }: TokenDictiona
         return;
     }
 
-    exitWithError(ISSUE_PREFIX_ERROR.replace(':0', issuePrefix));
+    exitWithError(
+        ISSUE_PREFIX_ERROR.replace(StringValue.ISSUE_PREFIX, issuePrefix)
+            .replace(StringValue.DOC_LINK, config.linkToRule as string)
+    );
 }
 
 function checkForBodies(config: Config, { bodies = [] }: TokenDictionary): void {
@@ -68,5 +75,8 @@ function checkForBodies(config: Config, { bodies = [] }: TokenDictionary): void 
     }
 
     const notMatchedBodies = bodies.filter(body => !body.match(config.body as RegExp));
-    exitWithError(BODIES_ERROR.replace(':0', notMatchedBodies.join('", "')));
+    exitWithError(
+        BODIES_ERROR.replace(StringValue.BODIES, notMatchedBodies.join('", "'))
+            .replace(StringValue.DOC_LINK, config.linkToRule as string)
+    );
 }

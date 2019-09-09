@@ -92,6 +92,13 @@ Default config is:
 "ignore": ["^Merge .*", "^auto/.*"]
 ```
 
+#### linkToRule
+
+This is a reference to page with rule description. By default there is a:
+```
+"linkToRule": "https://github.com/eigen-space/codestyle/tree/dev/doc/common#512-сообщение-к-изменению"
+```
+
 ## Why do we have that dependencies?
 
 * `@eigenspace/argument-parser` - parsing arguments from node process.
