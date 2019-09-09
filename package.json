@@ -5,11 +5,11 @@
     "email": "hello.boriskas@gmail.com",
     "license": "MIT",
     "scripts": {
-        "build": "tsc && node ./dev/scripts/copy-assets.js",
+        "build": "tsc -p tsconfig.build.json && node ./dev/scripts/copy-assets.js",
         "lint": "yarn lint:code . && yarn lint:markdown",
         "lint:code": "eslint --ext .tsx,.ts",
         "lint:fix": "yarn lint:code --fix",
-        "hooks:pre-push": "yarn lint",
+        "hooks:pre-push": "yarn lint && yarn test",
         "hooks:pre-commit": "lint-staged",
         "lint:markdown": "node ./node_modules/@eigenspace/codestyle/scripts/markdown-lint.js",
         "deploy:publish": "node node_modules/@eigenspace/helper-scripts/scripts/ci/publish.js",
@@ -18,7 +18,8 @@
     "husky": {
         "hooks": {
             "pre-push": "yarn hooks:pre-push",
-            "pre-commit": "yarn hooks:pre-commit"
+            "pre-commit": "yarn hooks:pre-commit",
+            "commit-msg": "commit-lint --message=COMMIT_MESSAGE"
         }
     },
     "lint-staged": {
@@ -44,10 +45,13 @@
         "@eigenspace/codestyle": "1.1.67",
         "@eigenspace/eslint-config-codestyle": "1.1.1",
         "@eigenspace/helper-scripts": "1.0.79",
-        "jest": "24.9.0",
+        "@types/jest": "^24.0.18",
+        "@types/node": "^12.7.4",
         "eslint": "5.16.0",
-        "lint-staged": "8.1.7",
         "husky": "2.3.0",
+        "jest": "24.9.0",
+        "lint-staged": "8.1.7",
+        "ts-jest": "24.0.2",
         "typescript": "3.5.3"
     },
     "bin": {

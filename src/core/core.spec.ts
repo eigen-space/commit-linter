@@ -1,4 +1,6 @@
-const { validate } = require('./core');
+import { validate } from './core';
+import Process = NodeJS.Process;
+import Mock = jest.Mock;
 
 /** File: config.test.json
  * {
@@ -18,10 +20,8 @@ const { validate } = require('./core');
 describe('Core', () => {
 
     beforeEach(() => {
-        process = prepareConfig(process);
-        // eslint-disable-next-line no-console
+        process = prepareConfig(process) as Process;
         console.error = jest.fn();
-        // eslint-disable-next-line no-console
         console.info = jest.fn();
     });
 
@@ -91,17 +91,24 @@ describe('Core', () => {
         expect(getFirstExitStatus(process)).toBe(0);
     });
 
+    it('should be failed if there are no body', () => {
+        process = commitWith('#12 actions', process);
+        validate();
+        expect(getFirstExitStatus(process)).toBe(1);
+    });
+
     it('should be passed with microfix issue prefix', () => {
         process = commitWith('microfix common: fixed dependency number', process);
         validate();
         expect(getFirstExitStatus(process)).toBe(0);
     });
 
-    function getFirstExitStatus(process) {
-        return process.exit.mock.calls[0][0];
+    function getFirstExitStatus(process: Process): number {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return (process.exit as any as Mock<number>).mock.calls[0][0];
     }
 
-    function prepareConfig(process) {
+    function prepareConfig(process: Process): Process | { exit: Mock<number> } {
         return {
             ...process,
             argv: [...process.argv, '--config=.config.test.json'],
@@ -109,10 +116,10 @@ describe('Core', () => {
         };
     }
 
-    function commitWith(message, process) {
+    function commitWith(message: string, process: Process): Process {
         return {
             ...process,
             argv: [...process.argv, `--message=${message}`]
-        };
+        } as Process;
     }
 });

@@ -1,0 +1,6 @@
+out-tsc/**/*
+dist/**/*
+
+# Because of lint condition rule exception error
+# https://github.com/eigen-space/codestyle/issues/76
+src/packages/commit-lint/lib/lib.js

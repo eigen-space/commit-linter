@@ -1,4 +1,4 @@
-const { merge } = require('./');
+const { merge } = require('./index');
 
 describe('Lib', () => {
 
