@@ -16,6 +16,9 @@ const ISSUE_PREFIX_ERROR = `${ERROR_PREFIX} Issue prefix "${StringValue.ISSUE_PR
 const BODIES_ERROR = `${ERROR_PREFIX} These bodies: "${StringValue.BODIES}" don\'t match the requirements. 
 \n ${REFERENCE_TO_DOC}`;
 
+/**
+ * A main function for commit linting. If there are no any errors exit process with 0, else with 1.
+ */
 export function validate(): void {
     const config = getConfig();
     const commitMessage = getCommitMessage();
@@ -40,6 +43,16 @@ function getConfig(): Config {
     return merge(sourceConfig as Dictionary, extendedConfig as Dictionary);
 }
 
+/**
+ * Parse tokens from commit message.
+ * | COREUI-220123 common: added the ability to parse library; card: added user |
+ * | <whole string                                                           >  |
+ * | <issue prefix> <bodies                                                  >  |
+ * |                <body 1                                  ><body 2        >  |
+ *
+ * @param message
+ * @param config
+ */
 function getTokensFrom(message: string, config: Config): TokenDictionary {
     const wholeString = message;
 
@@ -52,6 +65,15 @@ function getTokensFrom(message: string, config: Config): TokenDictionary {
     return { wholeString, issuePrefix, bodies };
 }
 
+/**
+ * Exit from process with code 0 if commit message matches with some of ignore patterns.
+ *
+ * For instance, if there is a ignore pattern '^Merge .*' commit with message "Merge to dev" will
+ * be accepted.
+ *
+ * @param config
+ * @param wholeString
+ */
 function checkForIgnoreMatching(config: Config, { wholeString = '' }: TokenDictionary): void {
     if ((config.ignore || []).some((rule: string) => wholeString.match(rule))) {
         exitWithSuccess(SUCCESS_MESSAGE);
