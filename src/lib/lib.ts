@@ -2,29 +2,74 @@ import { ArgumentParser } from '@eigenspace/argument-parser';
 import fs from 'fs';
 import { Config, Dictionary } from '../types';
 
+/**
+ * Exit from process with success and print info message in console
+ *
+ * @param message
+ */
 function exitWithSuccess(message: string): void {
     console.info(message);
     process.exit(0);
 }
 
+/**
+ * Exit from process with error message and print error message in console
+ *
+ * @param message
+ */
 function exitWithError(message: string): void {
     console.error(message);
     process.exit(1);
 }
 
+const DEFAULT_COMMIT_CONFIG_PATH = '.commit-lint.config.json';
+
+/**
+ * Returns merged all chain of configs.
+ */
+export function getConfig(): Config {
+    const parser = new ArgumentParser();
+    const args = parser.get(process.argv.slice(2));
+
+    const configPath = args.get('config') as string || DEFAULT_COMMIT_CONFIG_PATH;
+
+    let currentConfig = getConfigContentFrom(configPath) as Config;
+    const configs = [currentConfig];
+
+    while (currentConfig.extends) {
+        currentConfig = getConfigContentFrom(currentConfig.extends) as Config;
+        configs.push(currentConfig);
+    }
+
+    return merge<Config>(...configs);
+}
+
+/**
+ * Get commit message.
+ * If COMMIT_MESSAGE_VARIABLE const given as argument of message,
+ * returns value from user's commit message from git environment.
+ * In other cases returns value.
+ */
 function getCommitMessage(): string {
+    const COMMIT_MESSAGE_VARIABLE = 'COMMIT_MESSAGE';
+
     const parser = new ArgumentParser();
     const args = parser.get(process.argv);
 
     const message = args.get('message') as string;
 
-    if (message === 'COMMIT_MESSAGE') {
+    if (message === COMMIT_MESSAGE_VARIABLE) {
         return fs.readFileSync('.git/COMMIT_EDITMSG', 'utf8');
     }
 
     return message;
 }
 
+/**
+ * Read JSON config from file.
+ *
+ * @param path
+ */
 function getConfigContentFrom(path?: string): Config | undefined {
     if (!path) {
         return;
@@ -42,7 +87,13 @@ function getConfigContentFrom(path?: string): Config | undefined {
     return config;
 }
 
-function merge(...objects: Dictionary[]): Dictionary {
+/**
+ * Deeply merge input objects in single.
+ *
+ * @param objects
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function merge<T>(...objects: any[]): T {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const isObject = (obj: any): boolean => obj && typeof obj === 'object';
 

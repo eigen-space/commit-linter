@@ -2,20 +2,19 @@ import { validate } from './core';
 import Process = NodeJS.Process;
 import Mock = jest.Mock;
 
-/** File: config.test.json
- * {
-    "extends": ".commit-lint.config.json",
-    "issuePrefixes": ["proposal/[a-z-]+", "#[0-9]+", "TAX-[0-9]+"]
-}
- */
+// File: config.test.json
+// {
+//    "extends": ".commit-lint.config.json",
+//    "issuePrefixes": ["proposal/[a-z-]+", "#[0-9]+", "TAX-[0-9]+"]
+// }
+//
 
-/** File: .commit-lint-config.json
- * {
-    "body": "^([a-z\/, ]+?): (([a-z]+?ed|set|reset|draft) [a-z A-Z 0-9,]+)$",
-    "issuePrefixes": ["microfix"],
-    "ignore": ["^Merge .*", "^auto/.*"]
-}
- */
+// File: .commit-lint-config.json
+// {
+//    "body": "^([a-z\/, ]+?): (([a-z]+?ed|set|reset|draft) [a-z A-Z 0-9,]+)$",
+//    "issuePrefixes": ["microfix"],
+//    "ignore": ["^Merge .*", "^auto/.*"]
+// }
 
 describe('Core', () => {
 
@@ -25,8 +24,14 @@ describe('Core', () => {
         console.info = jest.fn();
     });
 
-    it('should be failed', () => {
+    it('should be failed with errored body, empty prefix and a lack of module', () => {
         process = commitWith('some error message', process);
+        validate();
+        expect(getFirstExitStatus(process)).toBe(1);
+    });
+
+    it('should be failed if there is a lack of issue prefix', () => {
+        process = commitWith('common: changed structure of project', process);
         validate();
         expect(getFirstExitStatus(process)).toBe(1);
     });
@@ -103,15 +108,29 @@ describe('Core', () => {
         expect(getFirstExitStatus(process)).toBe(0);
     });
 
+    it('should be passed for config without prefixes', () => {
+        process = prepareConfig(
+            process,
+            './src/core/spec-assets/spec.config.without-prefix.json'
+        ) as Process;
+        process = commitWith('cards: fixed padding in title', process);
+
+        validate();
+
+        expect(getFirstExitStatus(process)).toBe(0);
+    });
+
     function getFirstExitStatus(process: Process): number {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return (process.exit as any as Mock<number>).mock.calls[0][0];
     }
 
-    function prepareConfig(process: Process): Process | { exit: Mock<number> } {
+    function prepareConfig(process: Process, customConfigPath?: string): Process | { exit: Mock<number> } {
+        const config = customConfigPath || './src/core/spec-assets/spec.config.json';
+
         return {
             ...process,
-            argv: [...process.argv, '--config=.config.test.json'],
+            argv: [...process.argv, `--config=${config}`],
             exit: jest.fn()
         };
     }
