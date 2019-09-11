@@ -1,5 +1,5 @@
 {
-    "extends": ".commit-lint.base.config.json",
+    "extends": ".commit-linter.base.config.json",
     "issuePrefixes": [
         "proposal/[a-z-]+",
         "#[0-9]+",

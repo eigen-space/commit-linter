@@ -1,5 +1,5 @@
 {
-    "name": "@eigenspace/commit-lint",
+    "name": "@eigenspace/commit-linter",
     "version": "0.0.2",
     "author": "Daniil Sitdikov",
     "email": "hello.boriskas@gmail.com",
@@ -19,7 +19,7 @@
         "hooks": {
             "pre-push": "yarn hooks:pre-push",
             "pre-commit": "yarn hooks:pre-commit",
-            "commit-msg": "commit-lint --message=COMMIT_MESSAGE"
+            "commit-msg": "commit-linter --message=COMMIT_MESSAGE"
         }
     },
     "lint-staged": {
@@ -32,6 +32,8 @@
         "javascript",
         "nodejs",
         "rules",
+        "linter",
+        "lint",
         "style",
         "commit",
         "name",
@@ -55,6 +57,6 @@
         "typescript": "3.5.3"
     },
     "bin": {
-        "commit-lint": "./cli.js"
+        "commit-linter": "./cli.js"
     }
 }

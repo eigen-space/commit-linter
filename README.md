@@ -1,8 +1,8 @@
-# Commit-Lint
+# Commit Linter
 
-Don't allow developer push changes if commit message that doesn't correspond rules.
+Doesn't allow developers push changes if commit message doesn't correspond rules.
 This is an alternative for [commitint](https://commitlint.js.org/). The main difference 
-from this library is that it fully bases on [conventionalcommits.org](https://www.conventionalcommits.org/en/v1.0.0-beta.4/).
+from current library is that it fully bases on [conventionalcommits.org](https://www.conventionalcommits.org/en/v1.0.0-beta.4/).
 
 This library based on [this rule](https://github.com/eigen-space/codestyle/tree/dev/doc/common#512-сообщение-к-изменению)
 by default:
@@ -31,17 +31,17 @@ Example of commit with multiple changes: \
     "husky": {
         "hooks": {
             ...
-            "commit-msg": "commit-lint --message=COMMIT_MESSAGE"
+            "commit-msg": "commit-linter --message=COMMIT_MESSAGE"
             ...
         }
     }
    ...
     ```
 
-2. Add `.commit-lint.config.json` in the root of your project and set your issue prefixes:
+2. Add `.commit-linter.config.json` in the root of your project and set your issue prefixes:
     ```
     {
-        "extends": "@eigenspace/commit-lint/.commit-lint.config.json",
+        "extends": "@eigenspace/commit-linter/.commit-linter.config.json",
         "issuePrefixes": [
             "TAX/[a-z-]+"
         ]
@@ -50,13 +50,13 @@ Example of commit with multiple changes: \
 
 ## Configuration
 
-All configuration are in `.commit-lint.config.json` file:
+All configuration are in `.commit-linter.config.json` file:
 
 #### extends
 
 You can set file you want to extend from:
 ```
-"extends": ".commit-lint.base.config.json",
+"extends": ".commit-linter.base.config.json",
 ```
 
 #### body

@@ -1,5 +1,5 @@
 {
-    "body": "^([a-z\\/,\\- ]+?): (([a-z]+?ed|set|reset|draft) [a-z A-Z 0-9,]+)$",
+    "body": "^([a-z\\/,\\- ]+?): (([a-z]+?ed|set|reset|draft) [a-z A-Z 0-9,-]+)$",
     "issuePrefixes": ["microfix"],
     "linkToRule": "https://github.com/eigen-space/codestyle/tree/dev/doc/common#512-сообщение-к-изменению",
     "ignore": ["^Merge .*", "^auto/.*"]

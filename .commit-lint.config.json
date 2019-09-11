@@ -1,4 +1,0 @@
-{
-    "extends": ".commit-lint.base.config.json",
-    "issuePrefixes": [".*"]
-}

@@ -4,12 +4,12 @@ import Mock = jest.Mock;
 
 // File: config.test.json
 // {
-//    "extends": ".commit-lint.config.json",
+//    "extends": ".commit-linter.config.json",
 //    "issuePrefixes": ["proposal/[a-z-]+", "#[0-9]+", "TAX-[0-9]+"]
 // }
 //
 
-// File: .commit-lint-config.json
+// File: .commit-linter-config.json
 // {
 //    "body": "^([a-z\/, ]+?): (([a-z]+?ed|set|reset|draft) [a-z A-Z 0-9,]+)$",
 //    "issuePrefixes": ["microfix"],
@@ -61,7 +61,7 @@ describe('Core', () => {
     });
 
     it('should be passed if alternative issue prefix is in file', () => {
-        process = commitWith('proposal/commit-lint common: added library', process);
+        process = commitWith('proposal/commit-linter common: added library', process);
         validate();
         expect(getFirstExitStatus(process)).toBe(0);
     });

@@ -22,7 +22,7 @@ function exitWithError(message: string): void {
     process.exit(1);
 }
 
-const DEFAULT_COMMIT_CONFIG_PATH = '.commit-lint.config.json';
+const DEFAULT_COMMIT_CONFIG_PATH = '.commit-linter.config.json';
 
 /**
  * Returns merged all chain of configs.
