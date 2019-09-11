@@ -1,0 +1,21 @@
+if: branch = master
+language: node_js
+node_js:
+  - "11.10"
+git:
+  depth: false
+cache:
+  directories:
+    - node_modules
+script:
+  - git checkout $TRAVIS_BRANCH
+  - git remote set-url origin https://$USER:$GITHUB_API_KEY@github.com/eigen-space/commit-linter.git
+  - yarn lint && yarn build && npm run deploy:publish
+before_install:
+  - echo "//registry.npmjs.org/:_authToken=\${NPM_ACCESS_TOKEN}" > .npmrc
+notifications:
+  slack:
+    rooms:
+      - eigenspaceworkspace:kmQErenC9R4KA4kWyb1j8UaS#ci
+    on_success: change
+    on_failure: always
