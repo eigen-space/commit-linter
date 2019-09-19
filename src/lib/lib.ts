@@ -109,6 +109,8 @@ function merge<T>(...objects: any[]): T {
                     result[key] = pVal.concat(...oVal);
                 } else if (isObject(pVal) && isObject(oVal)) {
                     result[key] = merge(pVal as Dictionary, oVal as Dictionary);
+                    // Break the logic
+                    // eslint-disable-next-line @eigenspace/script-rules/conditions
                 } else {
                     result[key] = oVal;
                 }

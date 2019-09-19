@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+## [0.0.19] - 2019-09-19
+
+### Added
+
+- Added the ability to use points in the commit messages expect end of sentence
+
+### Changed
+
+- Updated versions of dependencies to latest
+
 ## [0.0.18] - 2019-09-11
 
 ### Added

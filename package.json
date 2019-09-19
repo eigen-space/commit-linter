@@ -44,9 +44,9 @@
         "@eigenspace/argument-parser": "1.0.4"
     },
     "devDependencies": {
-        "@eigenspace/codestyle": "1.1.67",
-        "@eigenspace/eslint-config-codestyle": "1.1.1",
-        "@eigenspace/helper-scripts": "1.0.79",
+        "@eigenspace/codestyle": "1.1.223",
+        "@eigenspace/eslint-config-codestyle": "1.1.2",
+        "@eigenspace/helper-scripts": "1.0.125",
         "@types/jest": "24.0.18",
         "@types/node": "12.7.4",
         "eslint": "5.16.0",
