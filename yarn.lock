@@ -187,10 +187,10 @@
   resolved "https://registry.yarnpkg.com/@eigenspace/eslint-plugin-script-rules/-/eslint-plugin-script-rules-0.0.4.tgz#ea3311cdc45e06daee759ffa7b18d0d695809158"
   integrity sha512-9TDj+aBVE7DvP6tEnDfCfzyJB4EN5uY38VrZAf9+YoEbnxxFxAmuO7Qrqa8CdcrAm8KfdjJO8uXcW3yG8WeiCw==
 
-"@eigenspace/helper-scripts@1.0.125":
-  version "1.0.125"
-  resolved "https://registry.yarnpkg.com/@eigenspace/helper-scripts/-/helper-scripts-1.0.125.tgz#8eaa96e64c6bb09811fc393721e907e0bd235226"
-  integrity sha512-8vW6RfqInb97Stw6GVFFuuVyEI7caOTaCteRi07oQO5lnhdRkaG+UNU5npx8gvKEBDFHMUT375c2Br14/nGTiA==
+"@eigenspace/helper-scripts@1.0.79":
+  version "1.0.79"
+  resolved "https://registry.yarnpkg.com/@eigenspace/helper-scripts/-/helper-scripts-1.0.79.tgz#8e7efec079213550d13ff559d8f9c409c5ff69bf"
+  integrity sha512-zVvAJzKTGZT1S6pTB5zdFMW0ZDUYMGNETmRBjb4uBd+BISjWpjxOZQ28zt9rIP4RI+GheEMsvf74+17hW4KVqA==
   dependencies:
     "@eigenspace/argument-parser" "1.0.2"
     npm-exists "1.0.1"
