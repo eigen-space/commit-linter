@@ -4,14 +4,9 @@ export const StringValue = {
     ISSUE_PREFIX: ':issue-prefix'
 };
 
-export const DocMessage = {
-    REFERENCE_TO_DOC: `Please, read: ${StringValue.DOC_LINK}`
-};
+export const DocMessage = { REFERENCE_TO_DOC: `Please, read: ${StringValue.DOC_LINK}` };
 
-export const StatusMessage = {
-    VALID: '✔ Commit is valid',
-    INVALID: '✘ Commit error'
-};
+export const StatusMessage = { VALID: '✔ Commit is valid', INVALID: '✘ Commit error' };
 
 export const ErrorMessage = {
     ISSUE_PREFIX_ERROR: `${StatusMessage.INVALID}\n Issue prefix "${StringValue.ISSUE_PREFIX}" \

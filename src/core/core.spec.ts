@@ -78,6 +78,18 @@ describe('Core', () => {
         expect(getFirstExitStatus(process)).toBe(1);
     });
 
+    it('should be passed if commit message includes big letters and points in the middle', () => {
+        process = commitWith('#12 common: added rule about proposals to README.md', process);
+        validate();
+        expect(getFirstExitStatus(process)).toBe(0);
+    });
+
+    it('should be failed if there is a point in the end of commit message', () => {
+        process = commitWith('#12 common: removed all errors.', process);
+        validate();
+        expect(getFirstExitStatus(process)).toBe(1);
+    });
+
     it('should be passed with correct message in multiple modules', () => {
         process = commitWith('#12 actions: fixed openening cards; common/icons: added close icon', process);
         validate();

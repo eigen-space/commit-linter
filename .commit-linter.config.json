@@ -1,4 +1,4 @@
 {
     "extends": ".commit-linter.base.config.json",
-    "issuePrefixes": [".*"]
+    "issuePrefixes": ["#[0-9]+"]
 }
