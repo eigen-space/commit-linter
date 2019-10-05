@@ -1,6 +1,6 @@
 {
     "name": "@eigenspace/commit-linter",
-    "version": "0.0.20",
+    "version": "0.0.21",
     "author": "Daniil Sitdikov",
     "email": "hello.boriskas@gmail.com",
     "bugs": "https://github.com/eigen-space/commit-linter/issues",
