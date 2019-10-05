@@ -3,6 +3,11 @@
     "version": "0.0.20",
     "author": "Daniil Sitdikov",
     "email": "hello.boriskas@gmail.com",
+    "bugs": "https://github.com/eigen-space/commit-linter/issues",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/eigen-space/commit-linter.git"
+    },
     "license": "MIT",
     "scripts": {
         "build": "tsc -p tsconfig.build.json && node ./dev/scripts/copy-assets.js",
