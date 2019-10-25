@@ -25,7 +25,14 @@ Example of commit with multiple changes: \
 
 ## Quickstart
 
-1. Just add this for your husky hooks in `package.json`:
+1. Install plugin here: \
+    `yarn add @eigenspace/commit-linter --dev`
+    
+    or
+    
+    `npm install @eigenspace/commit-linter --dev`
+
+2. Just add this for your husky hooks in `package.json`:
     ```
    ...
     "husky": {
@@ -38,12 +45,12 @@ Example of commit with multiple changes: \
    ...
     ```
 
-2. Add `.commit-linter.config.json` in the root of your project and set your issue prefixes:
+3. Add `.commit-linter.config.json` in the root of your project and set your issue prefixes:
     ```
     {
-        "extends": "@eigenspace/commit-linter/.commit-linter.config.json",
+        "extends": "./node_modules/@eigenspace/commit-linter/.commit-linter.base.config.json",
         "issuePrefixes": [
-            "TAX/[a-z-]+"
+            "TAX-[\d]+"
         ]
     }
     ```
