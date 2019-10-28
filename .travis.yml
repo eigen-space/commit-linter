@@ -1,4 +1,4 @@
-if: branch = master
+if: branch =~ ^(master|dev|feature\/.*)$ AND commit_message !~ /auto\/ci:\sset\sversion/
 language: node_js
 node_js:
   - "11.10"
