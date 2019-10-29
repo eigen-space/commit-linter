@@ -12,7 +12,8 @@ script:
   - git remote set-url origin https://$USER:$GITHUB_API_KEY@github.com/eigen-space/commit-linter.git
   - yarn lint && yarn build && npm run deploy:publish
 before_install:
-  - echo "//registry.npmjs.org/:_authToken=\${NPM_ACCESS_TOKEN}" > .npmrc
+  - echo "registry=https://$REGISTRY/" >> .npmrc
+  - echo "//$REGISTRY/:_authToken=$ACCESS_TOKEN" >> .npmrc
 notifications:
   slack:
     rooms:
