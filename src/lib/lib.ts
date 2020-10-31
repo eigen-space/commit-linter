@@ -2,26 +2,6 @@ import { ArgumentParser } from '@eigenspace/argument-parser';
 import fs from 'fs';
 import { Config, Dictionary } from '../types';
 
-/**
- * Exit from process with success and print info message in console
- *
- * @param message
- */
-function exitWithSuccess(message: string): void {
-    console.info(message);
-    process.exit(0);
-}
-
-/**
- * Exit from process with error message and print error message in console
- *
- * @param message
- */
-function exitWithError(message: string): void {
-    console.error(message);
-    process.exit(1);
-}
-
 const DEFAULT_COMMIT_CONFIG_PATH = '.commit-linter.config.json';
 
 /**
@@ -80,8 +60,7 @@ function getConfigContentFrom(path?: string): Config | undefined {
         const content = fs.readFileSync(path, 'utf8');
         config = JSON.parse(content);
     } catch (err) {
-        exitWithError(`Failed to load ${path}`);
-        return;
+        throw new Error(`Failed to load ${path}`);
     }
 
     return config;
@@ -121,8 +100,6 @@ function merge<T>(...objects: any[]): T {
 }
 
 export {
-    exitWithError,
-    exitWithSuccess,
     getCommitMessage,
     getConfigContentFrom,
     merge

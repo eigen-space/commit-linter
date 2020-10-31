@@ -1,42 +1,27 @@
-import { Config } from '../types';
-import { TokenDictionary } from './core.interface';
-import { exitWithSuccess, getCommitMessage, getConfig } from '../lib';
-import { StatusMessage } from '../common/const';
-import { checkForBodies, checkForIgnoreMatching, checkForIssuePrefix } from '../linter';
+import { getCommitMessage, getConfig } from '../lib';
+import { checkForBodies, checkForIssuePrefix, isMessageShouldBeIgnored } from '../linter';
+import { getTokensFrom } from '../token-extractor';
 
 /**
- * A main function for commit linting. If there are no any errors exit process with 0, else with 1.
+ * A main function for commit linting.
  */
 export function validate(): void {
     const config = getConfig();
     const commitMessage = getCommitMessage();
     const tokens = getTokensFrom(commitMessage, config);
 
-    checkForIgnoreMatching(config, tokens);
-    checkForIssuePrefix(config, tokens);
-    checkForBodies(config, tokens);
+    const isIgnored = isMessageShouldBeIgnored(config, tokens);
 
-    exitWithSuccess(StatusMessage.VALID);
-}
+    if (isIgnored) {
+        return;
+    }
 
-/**
- * Parse tokens from commit message.
- * | COREUI-220123 common: added the ability to parse library; card: added user |
- * | <whole string                                                           >  |
- * | <issue prefix> <bodies                                                  >  |
- * |                <body 1                                  ><body 2        >  |
- *
- * @param message
- * @param config
- */
-function getTokensFrom(message: string, config: Config): TokenDictionary {
-    const wholeString = message;
+    const checkers = [checkForIssuePrefix, checkForBodies];
 
-    const hasIssuePrefixes = config.issuePrefixes && !config.issuePrefixes.includes('.*');
-    const [issuePrefix, ...rest] = hasIssuePrefixes ? message.split(' ') : ['', message];
-    const bodies = rest.join(' ')
-        .split(';')
-        .map(body => body.trim());
-
-    return { wholeString, issuePrefix, bodies };
+    for (let i = 0; i < checkers.length; i++) {
+        const error = checkers[i](config, tokens);
+        if (error) {
+            throw new Error(error);
+        }
+    }
 }
