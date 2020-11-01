@@ -5,6 +5,9 @@ module.exports = {
         '!src/core/index.ts',
         '!cli.ts'
     ],
+    setupFiles: [
+        '<rootDir>/config/jest/setup/console.setup.ts'
+    ],
     coveragePathIgnorePatterns: [
         '.*\\.d\\.ts'
     ],
@@ -28,9 +31,7 @@ module.exports = {
         'node'
     ],
     globals: {
-        'ts-jest': {
-            tsConfig: 'tsconfig.spec.json'
-        }
+        'ts-jest': { tsConfig: 'tsconfig.spec.json' }
     },
     collectCoverage: true,
     coverageThreshold: {
