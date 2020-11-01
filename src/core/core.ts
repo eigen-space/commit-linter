@@ -18,7 +18,12 @@ export function validate(): void {
 
     const checkers = [checkForIssuePrefix, checkForBodies];
 
-    for (let i = 0; i < checkers.length; i++) {
+    checkers.forEach(checker => {
+        const error = checker(config, tokens);
+        if (error) {
+            throw new Error(error);
+        }
+    });
         const error = checkers[i](config, tokens);
         if (error) {
             throw new Error(error);
