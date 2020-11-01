@@ -2,7 +2,7 @@ import { Config } from '../types';
 import { TokenDictionary } from '../core/core.interface';
 
 /**
- * Parse tokens from commit message.
+ * Parses tokens from the commit message.
  * | COREUI-220123 common: added the ability to parse library; card: added user |
  * | <whole string                                                           >  |
  * | <issue prefix> <bodies                                                  >  |
