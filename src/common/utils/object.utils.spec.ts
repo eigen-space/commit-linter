@@ -1,6 +1,6 @@
-const { merge } = require('./index');
+import { ObjectUtils } from './object.utils';
 
-describe('Lib', () => {
+describe('ObjectUtils', () => {
 
     describe('#merge', () => {
 
@@ -8,7 +8,7 @@ describe('Lib', () => {
             const objectA = { a: 1 };
             const objectB = { b: 2 };
 
-            const result = merge(objectA, objectB);
+            const result = ObjectUtils.merge(objectA, objectB);
 
             expect(result).toEqual({ ...objectA, ...objectB });
         });
@@ -21,7 +21,7 @@ describe('Lib', () => {
                 a: { nestedB: 2 }
             };
 
-            const actual = merge(objectA, objectB);
+            const actual = ObjectUtils.merge(objectA, objectB);
             const expected = {
                 a: { nestedA: 1, nestedB: 2 }
             };
@@ -37,7 +37,7 @@ describe('Lib', () => {
                 a: [3, 4]
             };
 
-            const actual = merge(objectA, objectB);
+            const actual = ObjectUtils.merge(objectA, objectB);
 
             const expected = {
                 a: [1, 2, 3, 4]

@@ -5,7 +5,3 @@ export interface Config {
     ignore?: string[];
     body?: RegExp;
 }
-
-export interface Dictionary {
-    [property: string]: string | Dictionary | string[];
-}
