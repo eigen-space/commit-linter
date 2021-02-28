@@ -2,7 +2,7 @@ module.exports = {
     clearMocks: true,
     collectCoverageFrom: [
         'src/**/*.{ts,tsx}',
-        '!src/core/index.ts',
+        '!src/core/common.ts',
         '!cli.ts'
     ],
     coveragePathIgnorePatterns: [
@@ -28,9 +28,7 @@ module.exports = {
         'node'
     ],
     globals: {
-        'ts-jest': {
-            tsConfig: 'tsconfig.spec.json'
-        }
+        'ts-jest': { tsConfig: 'tsconfig.spec.json' }
     },
     collectCoverage: true,
     coverageThreshold: {

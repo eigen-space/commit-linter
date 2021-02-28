@@ -1,4 +1,4 @@
 #!/usr/bin/env node
 
-const { validate } = require('./core');
-validate();
+const { Linter } = require('./linter');
+new Linter().validate();
